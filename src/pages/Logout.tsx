@@ -3,6 +3,7 @@ import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { supabase } from '../services/supabaseClient';
 import { authSlice } from '../app/authSlice';
+import LoadingScreen from '../components/LoadingScreen';
 
 export default function Logout() {
     const dispatch = useDispatch();
@@ -19,9 +20,5 @@ export default function Logout() {
         logoutUser();
     }, []);
 
-    return (
-        <div>
-            <h1>Logging out...</h1>
-        </div>
-    );
+    return <LoadingScreen />;
 }
