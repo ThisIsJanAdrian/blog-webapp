@@ -3,6 +3,7 @@ import { useDispatch } from 'react-redux';
 import { supabase } from './services/supabaseClient';
 import { authSlice } from './app/authSlice';
 import AppRoutes from './AppRoutes';
+import LoadingScreen from './components/LoadingScreen';
 
 export default function App() {
     const dispatch = useDispatch();
@@ -24,7 +25,7 @@ export default function App() {
     }, []);
 
     if (loading) {
-        return <p>Loading...</p>;
+        return <LoadingScreen />;
     }
     return <AppRoutes />;
 }
