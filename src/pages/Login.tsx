@@ -10,6 +10,8 @@ export default function Login() {
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
 
+    const resetPassword = () => setPassword('')
+
     const handleLogin = async (e: React.FormEvent) => {
         e.preventDefault();
         setError('');
@@ -22,6 +24,7 @@ export default function Login() {
 
             if (error) {
                 setError(error.message);
+                resetPassword();
             }
             else if (data.user) {
                 dispatch(authSlice.actions.login({ email: data.user.email! }));
