@@ -1,12 +1,29 @@
 import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import { Login } from './pages/Login';
+import Login from './pages/Login';
+import Register from './pages/Register';
+import Logout from './pages/Logout';
+import BlogFeed from './pages/BlogFeed';
+import ProtectedRoute from './ProtectedRoute';
 
-export const AppRoutes = () => (
-    <BrowserRouter>
-        <Routes>
-            <Route path='/' element={<Login />} />
-            <Route path="/login" element={<Login />} />
-        </Routes>
-    </BrowserRouter>
-)
+export default function AppRoutes() {
+    return (
+        <BrowserRouter>
+            <Routes>
+                <Route path='/' element={<Login />} />
+                <Route path='/login' element={<Login />} />
+                <Route path='/register' element={<Register />} />
+                <Route path='/logout' element={<Logout />} />
+
+                <Route
+                    path='/feed'
+                    element={
+                        <ProtectedRoute>
+                            <BlogFeed />
+                        </ProtectedRoute>
+                    }
+                />
+            </Routes>
+        </BrowserRouter>
+    );
+}
