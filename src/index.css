@@ -45,14 +45,14 @@ button {
   font-size: 1em;
   font-weight: 500;
   font-family: inherit;
-  background-color: #4A90E2;
+  background-color: #152c57;
   color: #ffffff;
   cursor: pointer;
-  transition: background-color 0.15s, border-color 0.15s;
+  transition: background-color 0.2s, border-color 0.2s;
 }
 button:hover {
-  background-color: #357ABD;
-  border-color: #357ABD;
+  background-color: #204079;
+  border-color: #204079;
 }
 button:focus,
 button:focus-visible {
@@ -74,7 +74,7 @@ input, textarea {
 
 input:focus, textarea:focus {
   outline: none;
-  border-color: #4A90E2;
+  border-color: #204079;
   box-shadow: 0 0 0 2px rgba(74, 144, 226, 0.2);
 }
 
