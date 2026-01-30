@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import { authSlice } from '../app/authSlice';
 import { supabase } from '../services/supabaseClient';
 
@@ -14,17 +15,18 @@ export default function Login() {
         setError('');
 
         try {
-            const response = await supabase.auth.signInWithPassword({
+            const { data, error } = await supabase.auth.signInWithPassword({
                 email,
                 password,
             });
 
-            if (response.error) {
-                setError(response.error.message);
+            if (error) {
+                setError(error.message);
             }
-            else if (response.data.user) {
-                dispatch(authSlice.actions.login({ email: response.data.user.email! }));
-                console.log('Login successful for:', response.data.user.email);
+            else if (data.user) {
+                dispatch(authSlice.actions.login({ email: data.user.email! }));
+                console.log('Login successful for:', data.user.email);
+                navigate('/feed');
             }
         }
         catch (err) {
@@ -32,6 +34,8 @@ export default function Login() {
             console.error(err);
         }
     }
+
+    const navigate = useNavigate();
 
     return (
         <div>
@@ -54,6 +58,11 @@ export default function Login() {
                 />
                 <br />
                 <button type='submit'>Login</button>
+                <br />
+                <button type='button' onClick={() => navigate('/register')}>
+                    Register
+                </button>
+                {error && <p style={{ color: 'red' }}>{error}</p>}
             </form>
         </div>
     )
