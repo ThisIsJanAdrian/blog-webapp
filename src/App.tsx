@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
+import { useLocation } from 'react-router-dom';
 import type { RootState } from './app/store';
 import { supabase } from './services/supabaseClient';
 import { authSlice } from './app/authSlice';
@@ -14,6 +15,7 @@ export default function App() {
     const [loading, setLoading] = useState(true);
 
     const user = useSelector((state: RootState) => state.auth.user)
+    const location = useLocation()
 
     useEffect(() => {
         const checkUser = async () => {
@@ -33,12 +35,16 @@ export default function App() {
     if (loading) {
         return <LoadingScreen />;
     }
+
+    if (location.pathname === '/login' || location.pathname === '/register') {
+        return <AppRoutes />
+    }
     
     return (
         <>
             <Header />
-                {loading && <LoadingScreen />}
+            {loading && <LoadingScreen />}
             <AppRoutes />
         </>
-    )
-    }
+    );
+}

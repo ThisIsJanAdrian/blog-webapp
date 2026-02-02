@@ -21,11 +21,6 @@ export default function Header() {
                 className="logo"
                 onClick={() => window.location.reload()}
                 />
-
-                {/* <div className="header-actions">
-                    <button onClick={() => (window.location.href = '/create')}>New Post</button>
-                    <button onClick={handleLogout}>Logout</button>
-                </div> */}
             </div>
         </header>
     )
