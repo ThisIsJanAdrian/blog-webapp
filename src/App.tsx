@@ -1,13 +1,19 @@
 import { useState, useEffect } from 'react'
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import type { RootState } from './app/store';
 import { supabase } from './services/supabaseClient';
 import { authSlice } from './app/authSlice';
+
 import AppRoutes from './AppRoutes';
+
 import LoadingScreen from './components/LoadingScreen';
+import Header from './components/Header';
 
 export default function App() {
     const dispatch = useDispatch();
     const [loading, setLoading] = useState(true);
+
+    const user = useSelector((state: RootState) => state.auth.user)
 
     useEffect(() => {
         const checkUser = async () => {
@@ -27,5 +33,12 @@ export default function App() {
     if (loading) {
         return <LoadingScreen />;
     }
-    return <AppRoutes />;
-}
+    
+    return (
+        <>
+            <Header />
+                {loading && <LoadingScreen />}
+            <AppRoutes />
+        </>
+    )
+    }
