@@ -110,6 +110,9 @@ export default function Register() {
                 <br />
                 {error && <p style={{ color: 'red' }}>{error}</p>}
                 <button type='submit' disabled={loading}>{loading ? 'Creating account...' : 'Register'}</button>
+                <button type='button' onClick={() => window.location.href = '/login'}>
+                    Back to Login
+                </button>
             </form>
         </div>
     );

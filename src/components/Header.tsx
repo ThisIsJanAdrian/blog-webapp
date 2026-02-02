@@ -19,7 +19,8 @@ export default function Header() {
                 src={logo_dark}
                 alt="Babblr Logo"
                 className="logo"
-                onClick={() => window.location.reload()}
+                style={{ cursor: 'pointer' }}
+                onClick={() => window.location.href = '/'}
                 />
             </div>
         </header>

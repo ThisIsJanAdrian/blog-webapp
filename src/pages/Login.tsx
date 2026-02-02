@@ -62,7 +62,7 @@ export default function Login() {
                 <br />
                 <button type='submit'>Login</button>
                 <br />
-                <button type='button' onClick={() => navigate('/register')}>
+                <button type='button' onClick={() => window.location.href = '/register'}>
                     Register
                 </button>
                 {error && <p style={{ color: 'red' }}>{error}</p>}

@@ -3,7 +3,7 @@ export default function BlogUpdate() {
         <div>
             <h1>Blog Update Page</h1>
             <form>
-                <button type='button' onClick={() => window.location.href = '/logout'}>
+                <button type='button' onChange={() => window.location.href = '/logout'}>
                     Logout
                 </button>
             </form>

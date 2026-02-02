@@ -56,8 +56,8 @@ export default function AppRoutes() {
                 path="/"
                 element={
                     user
-                    ? <Navigate to="/feed" />
-                    : <Navigate to="/login" />
+                    ? <Navigate to='/feed' />
+                    : <Navigate to='/login' />
                 }
             />
         </Routes>
