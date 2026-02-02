@@ -174,12 +174,13 @@ input:focus, textarea:focus {
   box-shadow: 0 2px 4px rgba(0,0,0,0.05);
 }
 
-.blog-card h2 {
+.blog-card h3 {
   margin-top: 0;
-  color: #121B2C;
+  color: #121b2c;
 }
 
 .blog-card p {
+  margin-top: 0;
   color: #111111;
 }
 

@@ -72,9 +72,9 @@ export default function BlogFeed() {
                 </form>
 
                 {blogs.map((blog) => (
-                    <div key={blog.id} style={{ marginBottom: '2rem' }}>
+                    <div className='blog-card' key={blog.id} style={{ marginBottom: '1rem' }}>
                         <h3>{blog.title}</h3>
-                        <p style={{ marginTop: '0.5rem', fontSize: '0.9rem' }}>
+                        <p style={{ marginTop: '-1.2rem', fontSize: '0.8rem', color: '#121b2c' }}>
                             by <strong>{blog.profiles?.username ?? 'Unknown user'}</strong>
                         </p>
 
