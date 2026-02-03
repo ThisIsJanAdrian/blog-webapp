@@ -7,6 +7,7 @@ import Register from './pages/Register';
 import Logout from './pages/Logout';
 import BlogFeed from './pages/BlogFeed';
 import BlogCreate from './pages/BlogCreate';
+import BlogView from './pages/BlogView';
 import BlogUpdate from './pages/BlogUpdate';
 import BlogDelete from './pages/BlogDelete';
 import ProtectedRoute from './ProtectedRoute';
@@ -37,7 +38,15 @@ export default function AppRoutes() {
                 }
             />
             <Route
-                path='/blogs/:id/edit'
+                path='/blog/:id'
+                element={
+                    <ProtectedRoute>
+                        <BlogView />
+                    </ProtectedRoute>
+                }
+            />
+            <Route
+                path='/blog/:id/edit'
                 element={
                     <ProtectedRoute>
                         <BlogUpdate />
@@ -45,7 +54,7 @@ export default function AppRoutes() {
                 }
             />
             <Route
-                path='/blogs/:id/delete'
+                path='/blog/:id/delete'
                 element={
                     <ProtectedRoute>
                         <BlogDelete />

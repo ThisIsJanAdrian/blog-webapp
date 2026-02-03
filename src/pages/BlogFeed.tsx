@@ -1,5 +1,5 @@
 import { React, useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { supabase } from '../services/supabaseClient';
 import LoadingScreen from '../components/LoadingScreen';
 
@@ -16,6 +16,8 @@ interface Blog {
 }
 
 export default function BlogFeed() {
+    const navigate = useNavigate();
+    
     const [blogs, setBlogs] = useState<Blog[]>([]);
     const [loading, setLoading] = useState(true);
     const [userId, setUserId] = useState<string | null>(null);
@@ -45,6 +47,7 @@ export default function BlogFeed() {
             if (error) {
                 console.error('Error fetching blogs:', error);
             }
+            
             else {
                 setBlogs(data || []);
             }
@@ -73,19 +76,20 @@ export default function BlogFeed() {
 
                 {blogs.map((blog) => (
                     <div className='blog-card' key={blog.id} style={{ marginBottom: '1rem' }}>
-                        <h3>{blog.title}</h3>
-                        <p style={{ marginTop: '-1.2rem', fontSize: '0.8rem', color: '#121b2c' }}>
-                            by <strong>{blog.profiles?.username ?? 'Unknown user'}</strong>
-                        </p>
-
-                        <p>{blog.content}</p>
+                        <div className='blog-text' onClick={() => navigate(`/blog/${blog.id}`)}>
+                            <h3>{blog.title}</h3>
+                            <p style={{ marginTop: '-1.2rem', fontSize: '0.8rem', color: '#121b2c' }}>
+                                by <strong>{blog.profiles?.username ?? 'Unknown user'}</strong>
+                            </p>
+                            <p>{blog.content.slice(0, 200)}{blog.content.length > 200 ? '...' : ''}</p>
+                        </div>
 
                         {blog.image_url && (
-                            <div className="blog-image-wrapper">
+                            <div className='blog-image-wrapper'>
                                 <img
                                 src={blog.image_url}
                                 alt={blog.title}
-                                className="blog-image"
+                                className='blog-image'
                                 onClick={() => setLightboxImage(blog.image_url)}
                                 />
                             </div>
@@ -105,10 +109,10 @@ export default function BlogFeed() {
 
                         {lightboxImage && (
                             <div
-                                    className="lightbox-overlay"
+                                    className='lightbox-overlay'
                                     onClick={() => setLightboxImage(null)}
                                 >
-                                <img src={lightboxImage} alt="Full view" className="lightbox-image" />
+                                <img src={lightboxImage} alt='Full view' className='lightbox-image' />
                             </div>
                         )}
                     </div>
