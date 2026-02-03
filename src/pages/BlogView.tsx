@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { supabase } from '../services/supabaseClient';
 import LoadingScreen from '../components/LoadingScreen';
@@ -26,6 +26,7 @@ interface Comment {
 export default function BlogView() {
     const { id } = useParams();
     const navigate = useNavigate();
+    const textareaRef = useRef<HTMLTextAreaElement | null>(null);
 
     const [username, setUsername] = useState<string | null>(null);
     const [blog, setBlog] = useState<Blog | null>(null);
@@ -201,10 +202,17 @@ export default function BlogView() {
                 )}
 
                 <textarea
+                    ref={textareaRef}
                     placeholder='Babble a comment...'
                     value={commentText}
-                    onChange={(e) => setCommentText(e.target.value)}
-                    rows={3}
+                    onChange={(e) => {
+                        setCommentText(e.target.value)
+                        if (textareaRef.current) {
+                            textareaRef.current.style.height = 'auto'
+                            textareaRef.current.style.height = `${textareaRef.current.scrollHeight}px`
+                        }
+                    }}
+                    rows={1}
                 />
 
                 <div className='comment-actions'>
