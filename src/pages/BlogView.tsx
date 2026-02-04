@@ -167,7 +167,7 @@ export default function BlogView() {
                 by <strong>{blog.profiles?.username ?? 'Unknown user'}</strong>
             </p>
 
-            <p>{blog.content}</p>
+            <p style={{ whiteSpace: 'pre-wrap' }}>{blog.content}</p>
 
             {blog.image_url && (
                 <div className='blog-image-wrapper'>
@@ -186,14 +186,14 @@ export default function BlogView() {
 
             <div className='comment-input-wrapper'>
                 {commentImage && (
-                    <div className="comment-image-preview">
+                    <div className='comment-image-preview'>
                         <img
                             src={URL.createObjectURL(commentImage)}
-                            alt="Preview"
+                            alt='Preview'
                             onClick={() => setLightboxImage(URL.createObjectURL(commentImage))}
                         />
                         <button
-                            className="remove-image-button"
+                            className='remove-image-button'
                             onClick={() => setCommentImage(null)}
                         >
                             <strong>✕</strong>
@@ -206,10 +206,10 @@ export default function BlogView() {
                     placeholder='Babble a comment...'
                     value={commentText}
                     onChange={(e) => {
-                        setCommentText(e.target.value)
-                        if (textareaRef.current) {
-                            textareaRef.current.style.height = 'auto'
-                            textareaRef.current.style.height = `${textareaRef.current.scrollHeight}px`
+                            setCommentText(e.target.value)
+                            if (textareaRef.current) {
+                                textareaRef.current.style.height = 'auto'
+                                textareaRef.current.style.height = `${textareaRef.current.scrollHeight}px`
                         }
                     }}
                     rows={1}
@@ -248,7 +248,7 @@ export default function BlogView() {
                         <p style={{ marginTop: '-0.5rem', color: '#121b2c' }}>
                             <strong>{comment.created_by}</strong>
                         </p>
-                        <p>{comment.content}</p>
+                        <p style={{ whiteSpace: 'pre-wrap' }}>{comment.content}</p>
 
                         {comment.image_url && (
                             <div>
