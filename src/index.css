@@ -388,3 +388,10 @@ input:focus, textarea:focus {
   box-shadow: 0 4px 10px rgba(0,0,0,0.3);
   cursor: pointer;
 }
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin: 24px 0;
+}
