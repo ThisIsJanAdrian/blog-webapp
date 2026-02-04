@@ -97,7 +97,7 @@ export default function BlogCreate() {
                         <img src={URL.createObjectURL(imageFile)} alt='Preview' />
                         <button
                             type='button'
-                            className='remove-image'
+                            className='remove-image-button'
                             onClick={() => setImageFile(null)}
                         >
                             ✕
