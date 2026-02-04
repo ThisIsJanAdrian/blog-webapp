@@ -1,14 +1,17 @@
-import { React, useState } from 'react';
+import { useRef, useState } from 'react';
 import { supabase } from '../services/supabaseClient';
 import { useNavigate } from 'react-router-dom';
 import LoadingScreen from '../components/LoadingScreen';
 
 export default function BlogCreate() {
     const navigate = useNavigate()
+    const textareaRef = useRef<HTMLTextAreaElement | null>(null)
+
     const [title, setTitle] = useState('')
     const [content, setContent] = useState('')
     const [imageFile, setImageFile] = useState<File | null>(null)
     const [loading, setLoading] = useState(false)
+    const [submitting, setSubmitting] = useState(false)
     const [error, setError] = useState('')
 
     const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -77,30 +80,72 @@ export default function BlogCreate() {
     }
 
     return (
-        <div className="feed-container">
-            <h1>Create Blog Post</h1>
-            <form onSubmit={handleSubmit}>
+        <div className='feed-container'>
+            <div className='post-composer'>
+                <h2>Create post</h2>
+                {error && <p className='error-message'>{error}</p>}
                 <input
-                    type="text"
-                    placeholder="Title"
+                    className='post-title'
+                    placeholder='Blog title here...'
                     value={title}
                     onChange={(e) => setTitle(e.target.value)}
-                    required
                 />
-                <br />
-                <textarea
-                    placeholder="Content"
-                    value={content}
-                    onChange={(e) => setContent(e.target.value)}
-                    required
-                    rows={6}
-                />
-                <br />
-                <input type="file" accept="image/*" onChange={handleFileChange} />
-                <br />
-                {error && <p style={{ color: 'red' }}>{error}</p>}
-                <button type="submit">Post</button>
-            </form>
+
+                <div className='post-content-wrapper'>
+                    {imageFile && (
+                        <div className='comment-image-preview'>
+                        <img src={URL.createObjectURL(imageFile)} alt='Preview' />
+                        <button
+                            type='button'
+                            className='remove-image'
+                            onClick={() => setImageFile(null)}
+                        >
+                            ✕
+                        </button>
+                        </div>
+                    )}
+
+                    <textarea
+                        ref={textareaRef}
+                        placeholder='Babble away...'
+                        value={content}
+                        onChange={(e) => {
+                            setContent(e.target.value)
+                            if (textareaRef.current) {
+                                textareaRef.current.style.height = 'auto'
+                                textareaRef.current.style.height = `${textareaRef.current.scrollHeight}px`
+                        }
+                    }}
+                        rows={6}
+                    />
+
+                    <div className='comment-actions'>
+                        <button
+                            type='button'
+                            className='image-button'
+                            onClick={() => document.getElementById('blog-image-input')?.click()}
+                        >
+                            Add image
+                        </button>
+
+                        <input
+                            id='blog-image-input'
+                            type='file'
+                            accept='image/*'
+                            hidden
+                            onChange={(e) => e.target.files && setImageFile(e.target.files[0])}
+                        />
+
+                        <button
+                            type='button'
+                            disabled={!title.trim() || !content.trim() || submitting}
+                            onClick={handleSubmit}
+                        >
+                            Publish
+                        </button>
+                    </div>
+                </div>
+            </div>
         </div>
     );
 }
