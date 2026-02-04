@@ -82,7 +82,7 @@ export default function BlogCreate() {
     return (
         <div className='feed-container'>
             <div className='post-composer'>
-                <h2>Create post</h2>
+                <h2>Create blog</h2>
                 {error && <p className='error-message'>{error}</p>}
                 <input
                     className='post-title'

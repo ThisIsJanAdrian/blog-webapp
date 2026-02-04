@@ -174,7 +174,7 @@ input:focus, textarea:focus {
 .blog-card:hover {
   background-color: #eeeeee;
   box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-  transition-duration: 0.1s;
+  transition-duration: 0.05s;
   cursor: pointer;
 }
 
@@ -208,6 +208,58 @@ input:focus, textarea:focus {
   object-position: center center;
 }
 
+.line-clamp-2 {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.line-clamp-5 {
+  display: -webkit-box;
+  -webkit-line-clamp: 5;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.post-title {
+  width: 100%;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  resize: none;
+  outline: none;
+  padding: 12px;
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin-top: 12px;
+}
+
+.post-title:focus {
+  box-shadow: none;
+  border: 1px solid #ddd;
+}
+
+.post-content-wrapper {
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  padding: 12px;
+  margin: 24px 0;
+  background: #fff;
+  margin-top: 4px;
+}
+
+.post-content-wrapper textarea {
+  width: 100%;
+  border: none;
+  resize: none;
+  outline: none;
+  font-size: 0.95rem;
+}
+
+.post-content-wrapper textarea:focus {
+  box-shadow: none;
+}
+
 .comment-input-wrapper {
   border: 1px solid #ddd;
   border-radius: 10px;
@@ -222,6 +274,10 @@ input:focus, textarea:focus {
   resize: none;
   outline: none;
   font-size: 0.95rem;
+}
+
+.comment-input-wrapper textarea:focus {
+  box-shadow: none;
 }
 
 .comment-actions {
