@@ -1,5 +1,5 @@
 import { useEffect, useState, useRef } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate, Link } from 'react-router-dom';
 import { supabase } from '../services/supabaseClient';
 import LoadingScreen from '../components/LoadingScreen';
 
@@ -28,6 +28,7 @@ export default function BlogView() {
     const navigate = useNavigate();
     const textareaRef = useRef<HTMLTextAreaElement | null>(null);
 
+    const [userId, setUserId] = useState<string | null>(null);
     const [username, setUsername] = useState<string | null>(null);
     const [blog, setBlog] = useState<Blog | null>(null);
     const [loading, setLoading] = useState(true);
@@ -38,6 +39,10 @@ export default function BlogView() {
     const [lightboxImage, setLightboxImage] = useState<string | null>(null);
 
     useEffect(() => {
+        supabase.auth.getUser().then(({ data: { user } }) => {
+            setUserId(user ? user.id : null);
+        });
+
         supabase.auth.getUser().then(async ({ data }) => {
             if (!data.user) return;
 
@@ -183,6 +188,14 @@ export default function BlogView() {
             <small>
                 {new Date(blog.created_at).toLocaleString()}
             </small>
+
+            {userId === blog.created_by && (
+                <div>
+                    <Link to={`/blog/${blog.id}/edit`}>Edit</Link>
+                    {' | '}
+                    <Link to={`/blog/${blog.id}/delete`}>Delete</Link>
+                </div>
+            )}
 
             <div className='comment-input-wrapper'>
                 {commentImage && (
