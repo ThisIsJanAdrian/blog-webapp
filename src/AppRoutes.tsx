@@ -62,7 +62,7 @@ export default function AppRoutes() {
                 }
             />
             <Route
-                path="/"
+                path='/'
                 element={
                     user
                     ? <Navigate to='/feed' />

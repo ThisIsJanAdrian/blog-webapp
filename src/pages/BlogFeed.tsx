@@ -139,7 +139,7 @@ export default function BlogFeed() {
                     </div>
                 ))}
 
-                <div className="pagination">
+                <div className='pagination'>
                     <button
                         disabled={page === 1}
                         onClick={() => setPage((p) => p - 1)}

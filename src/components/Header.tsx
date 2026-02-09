@@ -13,12 +13,12 @@ export default function Header() {
     }
 
     return (
-        <header className="header">
-            <div className="header-inner">
+        <header className='header'>
+            <div className='header-inner'>
                 <img
                 src={logo_dark}
-                alt="Babblr Logo"
-                className="logo"
+                alt='Babblr Logo'
+                className='logo'
                 style={{ cursor: 'pointer' }}
                 onClick={() => window.location.href = '/'}
                 />
