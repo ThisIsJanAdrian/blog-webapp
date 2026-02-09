@@ -2,6 +2,7 @@ import { useRef, useState } from 'react';
 import { supabase } from '../services/supabaseClient';
 import { useNavigate } from 'react-router-dom';
 import LoadingScreen from '../components/LoadingScreen';
+import BackButton from '../components/BackButton';
 
 export default function BlogCreate() {
     const navigate = useNavigate()
@@ -82,7 +83,8 @@ export default function BlogCreate() {
     return (
         <div className='feed-container'>
             <div className='post-composer'>
-                <h2>Create blog</h2>
+                <BackButton />
+                <h2 style={{ margin: '1rem 0.2rem 0.6rem' }}>Create blog</h2>
                 {error && <p className='error-message'>{error}</p>}
                 <input
                     className='post-title'

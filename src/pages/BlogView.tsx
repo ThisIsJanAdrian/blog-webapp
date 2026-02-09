@@ -2,6 +2,7 @@ import { useEffect, useState, useRef } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import { supabase } from '../services/supabaseClient';
 import LoadingScreen from '../components/LoadingScreen';
+import BackButton from '../components/BackButton';
 
 interface Blog {
     id: string
@@ -167,6 +168,7 @@ export default function BlogView() {
 
     return (
         <div className='feed-container'>
+            <BackButton />
             <h3>{blog.title}</h3>
             <p style={{ marginTop: '-1.2rem', fontSize: '0.8rem', color: '#121b2c' }}>
                 by <strong>{blog.profiles?.username ?? 'Unknown user'}</strong>
