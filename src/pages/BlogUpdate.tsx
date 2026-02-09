@@ -22,7 +22,7 @@ export default function BlogUpdate() {
         const fetchBlog = async () => {
             const { data, error } = await supabase
                 .from('blogs')
-                .select('title, content')
+                .select('title, content, image_url')
                 .eq('id', id)
                 .single()
 
@@ -33,6 +33,14 @@ export default function BlogUpdate() {
 
             setTitle(data.title)
             setContent(data.content)
+
+            if (data.image_url != null) {
+                const response = await fetch(data.image_url)
+                const blob = await response.blob()
+                const file = new File([blob], 'image.jpg', { type: blob.type })
+                setImage(file)
+            }
+
             setLoading(false)
         }
 
@@ -114,7 +122,7 @@ export default function BlogUpdate() {
                             className='image-button'
                             onClick={() => document.getElementById('blog-image-input')?.click()}
                         >
-                            Add image
+                            {image ? 'Replace image' : 'Add image'}
                         </button>
 
                         <input

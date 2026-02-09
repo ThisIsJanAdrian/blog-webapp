@@ -127,7 +127,7 @@ export default function BlogCreate() {
                             className='image-button'
                             onClick={() => document.getElementById('blog-image-input')?.click()}
                         >
-                            Add image
+                            {imageFile ? 'Replace image' : 'Add image'}
                         </button>
 
                         <input
