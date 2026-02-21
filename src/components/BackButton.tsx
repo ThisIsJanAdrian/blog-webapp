@@ -5,16 +5,9 @@ export default function BackButton() {
 
     return (
         <button
+            className='back-button'
             type='button'
-            onClick={() => navigate(-1)}
-            style={{
-            padding: '0rem',
-            background: 'transparent',
-            border: 'none',
-            color: '#4A90E2',
-            cursor: 'pointer',
-            fontSize: '0.9rem'
-            }}
+            onClick={() => navigate('/feed')}
         >
             ← Back
         </button>

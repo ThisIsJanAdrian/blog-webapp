@@ -144,6 +144,22 @@ input:focus, textarea:focus {
   cursor: pointer;
 }
 
+.back-button {
+  padding: 0rem;
+  background: transparent;
+  border: none;
+  color: #4A90E2;
+  cursor: pointer;
+  font-size: 0.9rem;
+}
+
+.back-button:hover {
+  background: none;
+  border: none;
+  color: #152c57;
+  transition: color 0.2s;
+}
+
 .feed-container {
   max-width: 680px;
   margin: 0 auto;
@@ -206,6 +222,18 @@ input:focus, textarea:focus {
   height: 480px;
   object-fit: cover;
   object-position: center center;
+}
+
+.blog-actions {
+  margin-left: 2px;
+  margin-right: 8px;
+  font-size: 0.9rem;
+}
+
+.blog-actions:hover {
+  cursor: pointer;
+  color: #152c57;
+  transition: color 0.15s;
 }
 
 .line-clamp-2 {

@@ -3,6 +3,7 @@ import { useParams, useNavigate, Link } from 'react-router-dom';
 import { supabase } from '../services/supabaseClient';
 import LoadingScreen from '../components/LoadingScreen';
 import BackButton from '../components/BackButton';
+import { timeAgo } from '../utils/timeAgo';
 
 interface Blog {
     id: string
@@ -171,7 +172,7 @@ export default function BlogView() {
             <BackButton />
             <h3>{blog.title}</h3>
             <p style={{ marginTop: '-1.2rem', fontSize: '0.8rem', color: '#121b2c' }}>
-                by <strong>{blog.profiles?.username ?? 'Unknown user'}</strong>
+                by <strong>{blog.profiles?.username ?? 'Unknown user'}</strong> • {timeAgo(blog.created_at)}
             </p>
 
             <p style={{ whiteSpace: 'pre-wrap' }}>{blog.content}</p>
@@ -187,17 +188,16 @@ export default function BlogView() {
                 </div>
             )}
 
-            <small>
+            <p style={{ marginLeft: '2px', fontSize: '0.9rem', color: '#121b2c' }}>
                 {new Date(blog.created_at).toLocaleString()}
-            </small>
+            </p>
 
-            {userId === blog.created_by && (
-                <div>
-                    <Link to={`/blog/${blog.id}/edit`}>Edit</Link>
-                    {' | '}
-                    <Link to={`/blog/${blog.id}/delete`}>Delete</Link>
+            {userId === blog.created_by ? (
+                <div style={{ display: 'inline' }}>
+                    <Link to={`/blog/${blog.id}/edit`} className='blog-actions'>Edit post</Link>
+                    <Link to={`/blog/${blog.id}/delete`} className='blog-actions'>Delete post</Link>
                 </div>
-            )}
+            ) : ''}
 
             <div className='comment-input-wrapper'>
                 {commentImage && (

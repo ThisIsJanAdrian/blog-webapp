@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { supabase } from '../services/supabaseClient';
 import LoadingScreen from '../components/LoadingScreen';
+import { timeAgo } from '../utils/timeAgo';
 
 interface Blog {
     id: string
@@ -10,9 +11,8 @@ interface Blog {
     image_url?: string | null
     created_at: string
     created_by: string
-    profiles?: {
-        username: string
-    }
+    profiles?: { username: string }
+    comments?: { count: number }[]
 }
 
 export default function BlogFeed() {
@@ -53,9 +53,8 @@ export default function BlogFeed() {
                     image_url,
                     created_at,
                     created_by,
-                    profiles (
-                        username
-                    )
+                    profiles ( username ),
+                    comments ( count )
                     `,
                     { count: 'exact' }
                 )
@@ -64,7 +63,8 @@ export default function BlogFeed() {
 
             if (error) {
                 console.error(error);
-            } else {
+            }
+            else {
                 setBlogs(data || []);
                 setTotalCount(count ?? 0);
             }
@@ -100,7 +100,7 @@ export default function BlogFeed() {
                         <div className='blog-text' onClick={() => navigate(`/blog/${blog.id}`)}>
                             <h3>{blog.title}</h3>
                             <p style={{ marginTop: '-1.2rem', fontSize: '0.8rem', color: '#121b2c' }}>
-                                by <strong>{blog.profiles?.username ?? 'Unknown user'}</strong>
+                                by <strong>{blog.profiles?.username ?? 'Unknown user'}</strong> • {timeAgo(blog.created_at)}
                             </p>
                             <p className='line-clamp-2' style={{ whiteSpace: 'pre-wrap' }}>{blog.content}</p>
                         </div>
@@ -115,18 +115,18 @@ export default function BlogFeed() {
                                 />
                             </div>
                         )}
-
-                        <small>
-                            {new Date(blog.created_at).toLocaleString()}
-                        </small>
-
-                        {userId === blog.created_by && (
-                            <div>
-                                <Link to={`/blog/${blog.id}/edit`}>Edit</Link>
-                                {' | '}
-                                <Link to={`/blog/${blog.id}/delete`}>Delete</Link>
-                            </div>
-                        )}
+            
+                        <div style={{ marginTop: '0.8rem' }}>
+                            <Link to={`/blog/${blog.id}`} className='blog-actions'>
+                                {blog.comments?.[0]?.count ?? 0} {blog.comments?.[0]?.count === 1 ? 'comment' : 'comments'}
+                            </Link>
+                            {userId === blog.created_by ? (
+                                <div style={{ display: 'inline' }}>
+                                    <Link to={`/blog/${blog.id}/edit`} className='blog-actions'>Edit</Link>
+                                    <Link to={`/blog/${blog.id}/delete`} className='blog-actions'>Delete</Link>
+                                </div>
+                            ) : ''}
+                        </div>
 
                         {lightboxImage && (
                             <div

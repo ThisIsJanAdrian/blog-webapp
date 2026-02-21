@@ -12,6 +12,7 @@ export default function BlogUpdate() {
     const [title, setTitle] = useState('')
     const [content, setContent] = useState('')
     const [image, setImage] = useState<File | null>(null)
+    const [removeImage, setRemoveImage] = useState(false)
     const [loading, setLoading] = useState(true)
     const [submitting, setSubmitting] = useState(false)
     const [error, setError] = useState('')
@@ -45,27 +46,36 @@ export default function BlogUpdate() {
         }
 
         fetchBlog()
-    }, [id, navigate])
+    }, [id, navigate]);
 
     const handleUpdate = async () => {
         if (!id) return
 
-        let image_url = null
+        let finalImageUrl: string | null | undefined = undefined
+
+        if (removeImage) {
+        finalImageUrl = null
+        }
 
         if (image) {
             const fileName = `${Date.now()}_${image.name}`
             await supabase.storage.from('blog-images').upload(fileName, image)
             const { data } = supabase.storage.from('blog-images').getPublicUrl(fileName)
-            image_url = data.publicUrl
+            finalImageUrl = data.publicUrl
+        }
+
+        const updates: any = {
+            title,
+            content,
+        }
+
+        if (finalImageUrl !== undefined) {
+            updates.image_url = finalImageUrl
         }
 
         const { error } = await supabase
             .from('blogs')
-            .update({
-            title,
-            content,
-            ...(image_url && { image_url }),
-            })
+            .update(updates)
             .eq('id', id)
 
         if (!error) {
@@ -95,7 +105,7 @@ export default function BlogUpdate() {
                         <button
                             type='button'
                             className='remove-image-button'
-                            onClick={() => setImage(null)}
+                            onClick={() => setRemoveImage(true)}
                         >
                             ✕
                         </button>
